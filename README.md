@@ -7,7 +7,7 @@
 ```javascript
 name: goodsManager
 desc: 商品管理页内容
-author: 俞雅菲
+author: 刘佳
 version：v1.0
 ```
 
