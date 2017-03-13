@@ -1,0 +1,62 @@
+@import "./../../../components/common/commonCss/index.css";
+@3:#333;@6:#666;@9:#999;@c:#ccc;
+@blue :#0098ee;
+@blueDeep:#0fa2e6; //深蓝
+@blueEasy:#63b5f1; //浅蓝
+@gray:#f3f5f9;  //模块背景色
+body{
+  font-size: 16px;
+  min-width: 1200px;
+  -webkit-overflow-scrolling : touch;
+}
+// =============头部公共css===============
+.y-logo{
+  background:url('./../../../images/logo2.jpg') no-repeat center 40%;
+}
+.y-nav li a{
+  color: @9;
+}
+.y-nav li.active a{
+  color: @blue;
+}
+.y-nav li a:hover{
+  color: @blue;
+  // border-bottom: 3px solid @blueDeep;
+}
+.loginUser{
+  color:@blueDeep;
+  line-height: 8;
+}
+.addMore{
+  cursor: pointer;
+  text-align: center;
+  margin:40px 0 80px 0;
+  button{
+    color: #0fa2e6;
+    background-color: #fff;
+    border-color: #0fa2e6;
+    padding: 7px 20px;
+    font-size: 16px;
+  }
+}
+
+// =========================END==========================
+.ptb30{
+  padding: 30px 10px;
+}
+.pt15{
+  padding-top: 15px;
+}
+.ant-menu-item{
+  color: @9;
+}
+.ant-menu-item-selected{
+  color: @blueDeep !important;
+  border-bottom: 2px solid @blueDeep !important;
+}
+.ant-menu-item:hover{
+  color: @blueDeep !important;
+}
+.nomination-list{
+  margin-top: 10px;
+}

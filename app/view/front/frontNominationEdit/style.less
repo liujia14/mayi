@@ -1,0 +1,93 @@
+@3:#333;
+@blue :#0098ee;
+@blueDeep:#0fa2e6; //深蓝
+@blueEasy:#63b5f1; //浅蓝
+@gray:#f3f5f9;  //模块背景色
+body{
+  font-size: 16px;
+}.y-logo{
+  background:url('./../../../images/logo2.jpg') no-repeat center 40%;
+}
+.y-nav li a{
+  color: #999;
+}
+.y-nav li a:hover{
+  color: #0098ee;
+  // border-bottom: 3px solid @blueDeep;
+}
+.loginUser{
+  color:@blueDeep;
+}
+.ptb30{
+  padding: 30px 10px;
+}
+.oddDiff{
+  // position: relative;
+  // top: 445px;
+  margin-top: 445px;
+  overflow: hidden;
+}
+.y-container::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.listItems{
+  padding-top: 60px;
+}
+.listItems::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.listFl,.listFr{
+  width:50%;
+  float: left;
+}
+.listFl{
+  padding-left: 10px 0 0 60px;
+}
+.listTitle,.listFooter{
+  width: 510px;
+  font-size: 18px;
+  color: @3;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.listFooter{
+  margin-bottom: 50px;
+}
+.listFooter a{
+  color:@blueDeep;
+}
+.listFooter a:hover{
+  color:@blueEasy;
+}
+.oddDiff::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.oddDiff>.y-list:nth-child(2n){
+  background: @gray;
+}
+.footerDepartment{
+  background: @blueDeep;
+  padding: 50px 0;
+}
+.footerDepartment::after{
+  content: '';
+  clear: both;
+  display: block;
+}
+.footer{
+  height: 180px;
+  padding: 30px 0 60px 0;
+}
+.more{
+  text-align: center;
+  font-size: 16px;
+}
+.more a,.more a:hover{
+  color:white;
+}

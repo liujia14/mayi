@@ -1,0 +1,41 @@
+
+@c:#ccc;
+@6:#666;
+@9:#999;
+@red: #f46e64;
+@blue :#0098ee;@blueEasy:#0fa2e6;
+.nominateName a{color:@blueEasy;}
+.leftbox{
+  word-break: break-all;
+  .ant-btn-primary,.ant-btn-disabled{
+    padding: 7px 30px !important;
+    border-radius: 5px !important;
+  }
+  .ant-btn-primary{
+    font-size: 16px;
+    background-color: @blueEasy !important;
+    border-color: @blueEasy !important;
+  }
+  .ant-btn-disabled{
+    font-size: 16px !important;
+    cursor: default;
+    color: white !important;
+    height: 40px;
+    background-color: @c !important;
+    border-color: @c !important;
+  }
+  .ant-btn-primary:focus, .ant-btn-primary:hover{
+    background-color: #63b5f1 !important;
+    border-color: #63b5f1 !important;
+  }
+  .ant-btn-disabled:focus, .ant-btn-disabled:hover{
+    color: white !important;
+    background-color: @c !important;
+    border-color: @c !important;
+  }
+}
+.leftbox::after{
+  content: '';
+  display: block;
+  clear: both;
+}

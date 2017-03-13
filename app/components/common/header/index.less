@@ -1,0 +1,77 @@
+@c:#ccc;
+@blue :#0098ee;
+.y-header{
+  width: 100%;
+  height:90px;
+  position: relative;
+  z-index: 2;
+
+}
+.y-container{
+  max-width:1200px;
+  min-width:990px;
+  margin:0 auto;
+}
+.y-logo{
+  width:300px;
+  height:90px;
+  display: inline-block;
+}
+.y-nav{
+  display: inline-block;
+  margin-left: 50px;
+  list-style: none;
+  li{
+    float: left;
+    height: 90px;
+    line-height: 90px;
+    a{
+      display: block;
+      position: relative;
+      height: 90px;
+      line-height: 5.9;
+      text-decoration: none;
+      padding: 0 22px;
+      text-align: center;
+      font-size: 18px;
+    }
+    a:hover{
+      box-sizing: border-box;
+    }
+    a::before{
+      content: "";
+    	position: absolute;
+    	bottom: 0;
+    	width: 0;
+    	border-bottom: solid 3px;
+      left: 0;
+    }
+    a:before {
+    	-webkit-transition: width .2s ease-in-out;
+    	transition: width .2s ease-in-out;
+    }
+    a:hover:before {
+      color: @blue;
+    	width: 100%;
+    }
+  }
+  .active a:before{
+    color:@blue;
+    width: 100%;
+  }
+  .active a:hover:before{
+    color:@blue;
+    width: 100%;
+  }
+}
+.loginUser{
+  display: block;
+  float: right;
+  margin-right:10px;
+  font-size: 14px;
+  height: 90px;
+  line-height: 7.6;
+}
+.handout{
+  cursor: pointer;
+}

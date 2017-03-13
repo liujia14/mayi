@@ -1,0 +1,162 @@
+// @import "./../../../components/common/commonCss/index.css";
+@3:#333;@6:#666;@9:#999;@c:#ccc;
+@blue :#0098ee;
+@blueDeep:#0fa2e6; //深蓝
+@blueEasy:#63b5f1; //浅蓝
+@gray:#f3f5f9;  //模块背景色
+body{
+  font-size: 16px;
+  overflow-y: auto;
+  min-width: 1200px;
+  -webkit-overflow-scrolling : touch;
+}
+.y-container{
+  background:url("./../../../images/bg.png") no-repeat;
+  background-size: 100% 38%;
+  background-position: -25px 233px;
+}
+.y-logo{
+  background:url('./../../../images/logo2.jpg') no-repeat center 40%;
+}
+.y-nav li a{
+  color: @9;
+}
+.y-nav li a:hover{
+  color: #0098ee;
+  // border-bottom: 3px solid @blueDeep;
+}
+.addMore{
+  cursor: pointer;
+  text-align: center;
+  margin:40px 0 80px 0;
+  button{
+    color: #0fa2e6;
+    background-color: #fff;
+    border-color: #0fa2e6;
+    padding: 7px 20px;
+    font-size: 16px;
+  }
+}
+
+.loginUser{
+  color:@blueDeep;
+  line-height: 8;
+}
+.ptb30{
+  padding: 30px 10px;
+}
+.handout{
+  color: #999;
+}
+.ant-breadcrumb>span:last-child>span{
+  color:@blueDeep !important;
+}
+//===================== listLeft组件css=================
+.antCom{
+  width: 80%;
+  padding-left: 25px;
+  float: left;
+  .ant-btn-primary,.ant-btn-disabled{
+    margin-top: 30px;
+    margin-left: 33.5%;
+    font-size: 16px;
+    padding: 7px 30px !important;
+    border-radius: 5px !important;
+  }
+}
+.Cl6{
+  color: @6;
+}
+.leftbox{
+  padding-left: 40px !important;
+  margin-bottom: 30px;
+
+}
+.nominateImg{
+  float: left;
+}
+
+.ant-btn-disabled{
+  height: 40px !important;
+  font-size: 16px;
+  cursor: default ;
+}
+.ant-btn-primary{
+  background-color: @blueDeep;
+  border-color: @blueDeep;
+}
+.nominateImg{
+  margin-left: 25px;
+  width: 150px;
+  height: 150px;
+}
+.nominateName{
+  font-size: 30px;
+  padding:5px 0 12px 0;
+  border-bottom: 1px solid @c;
+  margin:10px 0 5px 0;
+  color: #0FA2E6;
+}
+.nominateName a,.nominateImg{
+  cursor: default;
+}
+.nominateDec{
+  font-size: 18px;
+}
+.nominateDep,.nominateTime{
+  font-size: 18px;
+  color: @6;
+}
+//=========================结束=============================
+
+.y-lists{
+  width: 100%;
+  .y-h1{
+    padding: 30px 0;
+    font-size: 24px;
+    color: @9;
+    text-align: center;
+  }
+  .search-box{
+    position: absolute;
+    right: 20px;
+    top:37px;
+    label{
+      color: @6;
+      font-size: 14px;
+    }
+    .ant-select{
+      width: 300px;
+    }
+  }
+  .y-por{
+    position: relative;
+  }
+  .itemBox{
+    width: 22%;
+    margin:15px 1.5%;
+    opacity: 1;
+    transition: opacity .5s ease-in;
+  }
+  .clearFix>div:nth-child(4n){
+    margin-right: 0px;
+  }
+  .itemImg,.itemImg img{
+    width: 260px;
+    height: 195px;
+  }
+}
+//奖项报名团队 判断
+.empty{
+  text-align: center;
+  min-height: 430px;
+}
+.empty img{
+  margin: 80px 0 30px 0;
+}
+.empty div{
+  font-size: 18px;
+}
+.handout{
+  color:@blueDeep;
+}

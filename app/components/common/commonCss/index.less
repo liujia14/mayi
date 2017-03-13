@@ -1,0 +1,160 @@
+
+// 全局颜色
+@color: #eee;
+@white: #fff;
+@c9:#999;
+@c24344e:#24344e;
+@cf7:#f7f7f7;
+@f5f5f5:#f5f5f5;
+@c:#ccc;
+@blue :#0098ee;
+
+.cl9d{
+  color: @c9;
+  background: #eee;
+}
+.ant-form-item{
+  margin-bottom: 20px;
+}
+.ant-form-item-label{
+  text-align: center;
+}
+.code-box-demo .ant-row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.code-box-demo .ant-row > div {
+  padding: 0 8px;
+}
+.ant-card-head{
+  border-bottom:none;
+}
+.ant-input-search{
+  height: 34px;
+}
+.ant-card-body {
+    padding: 4px 24px;
+}
+.ant-btn-lg{
+  padding: 4px 10px 5px !important;
+}
+.h3{
+  font-size: 20px;
+  font-weight: 600;
+}
+.h5{
+  font-weight: 600;
+  color:@c24344e;
+  background: #f9f9f9;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+}
+.he100{
+  min-height: 100%;
+  .bgfff
+}
+.he100::after{
+  content: '';
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+  *zoom:1;
+}
+.fw500{
+  font-weight: 500;
+}
+.bgf5{
+  background-color: @f5f5f5;
+}
+.mh500{
+  min-height: 500px;
+}
+.tl{text-align: left;}
+.tr{text-align: right;}
+.c234{color: @c24344e;}
+.bgfff{background: @white;}
+
+// 根据属性设置大小函数
+.set(@name, @px){
+  @{name}: @px * 1px;
+}
+.fs(@px){
+  .set(font-size, @px);
+}
+.pd(@px){
+  .set(padding, @px);
+}
+.pl(@px){
+  .set(padding-left, @px);
+}
+.pt(@px){
+  .set(padding-top, @px);
+}
+.pb(@px){
+  .set(padding-bottom, @px);
+}
+.mr(@px){
+  .set(margin-right, @px);
+}
+.mg(@px){
+  .set(margin, @px);
+}
+.mt(@px){
+  .set(margin-top, @px);
+}
+.mb(@px){
+  .set(margin-bottom, @px);
+}
+.mr10{
+  .mr(10)
+}
+.fs12{
+  .fs(12)
+}
+.fs14{
+  .fs(14)
+}
+.pt12{
+  .pt(12)
+}
+.pl20{
+  .pl(20)
+}
+.pb12{
+  .pb(12)
+}
+.pb20{
+  .pb(20)
+}
+.ptb12{
+  .pt(10);
+  .pb(12)
+}
+.pd10{
+  .pd(10)
+}
+.pd20{
+  .pd(20)
+}
+.pd30{
+  .pd(30)
+}
+.mg10{
+  .mg(10)
+}
+.mt20{
+  .mt(20)
+}
+.mb20{
+  .mb(20)
+}
+.he90{
+  height: 90%;
+}
+.he90::after{
+  content: '';
+  display: table;
+  clear: both;
+}

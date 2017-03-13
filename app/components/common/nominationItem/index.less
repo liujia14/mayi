@@ -1,0 +1,139 @@
+// iconfont在线链接
+@import '//at.alicdn.com/t/font_3y5f6rjrswgn9udi.css';
+@c:#ccc;@3:#333;@6:#666;@9:#999;
+@red: #f46e65;
+@blue :#0098ee;@blueEasy:#0fa2e6;
+@backgroundColor:#f7f8fc;
+.nominationBox{
+  padding: 60px 22px 40px 61px;
+  background: @backgroundColor;
+  margin: 60px 0;
+  // overflow: hidden;
+  position: relative;
+  .nomi-caption{
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 45px;
+    color: @9;
+  }
+  .item-leftimg{
+    width:400px;
+    height: 300px;
+    float: left;
+    overflow: hidden;
+    img{
+      width:400px;
+      height: 300px;
+      display: block;
+    }
+  }
+  .item-component>div::after{
+    content: '';
+    clear: both;
+    display: block;
+  }
+  .item-component{
+    width: 58%;
+    float: left;
+    margin-left:30px;
+    font-size: 16px;
+    color: #666;
+    word-break: break-all;
+
+    .item-inlb{
+      // overflow : hidden;
+      // text-overflow: ellipsis;
+      // display: -webkit-box;
+      // -webkit-line-clamp: 3;
+      // -webkit-box-orient: vertical;
+      float: left;
+      width: 82%;
+      word-break:break-all;
+    }
+    .aColor{
+      color: @blueEasy;
+    }
+    .item-prize span,.item-reason span,.item-type span,.item-member span,.item-department-b span{
+      float: left;
+    }
+  }
+  .icon-huangguan{
+    font-size: 18px;
+  }
+  .limite-state{
+    position: absolute;
+    right:10px;
+    top:-23px;
+    font-size: 30px;
+    color:@9;
+  }
+  .ongoing{
+    color: @blueEasy;
+  }
+}
+.nominationBox::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.item-title{
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.item-title a{
+  color: @3;
+}
+.item-title a:hover{
+  color: @blueEasy;
+}
+.item-department-b{
+  margin-bottom: 20px;
+}
+.item-department-b span{
+  float: left;
+}
+.item-agree,.item-comment{
+  display: inline-block;
+  color: @9;
+  margin:10px 10px 0 0 ;
+  font-size: 14px;
+}
+.item-btngroup{
+  margin: 17px 0 1px 0;
+  a{
+    background: @blueEasy;
+    border-color:@blueEasy;
+    margin-right: 14px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
+.icon-dianzan-copy{
+  color: @red;
+}
+.itemAgree,.itemComment,.itemAwards{
+  color: @9;
+  font-size: 14px;
+  display: inline-block;
+  margin-right:10px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.itemAwards{
+  color:@red;
+}
+.clearFix{
+  overflow: hidden;
+}
+.empty{
+  text-align: center;
+  min-height: 70vh;
+}
+.empty img{
+  margin: 80px 0 30px 0;
+}
+.empty div{
+  font-size: 18px;
+}
