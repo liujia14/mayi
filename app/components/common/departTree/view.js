@@ -71,15 +71,17 @@ function getNewTreeData(treeData, curKey, child, level) {
 class Demo extends React.Component {
 	constructor(props){
 		super(props);
-		let newValue=props.value ? props.value : [];
-		this.state={
+		let newValue = props.value ? props.value : [];
+		this.state = {
 			value: newValue,
 			treeData:[{
 			  label: '蚂蚁',
 			  value: 'ALIPY',
+        disableCheckbox: true,
 			  key: 'ALIPY',
 			}, {
 			  label: '口碑',
+        disableCheckbox: true,
 			  value: 'KB',
 			  key: 'KB',
       }],
@@ -96,20 +98,51 @@ class Demo extends React.Component {
       })
     }
   }
-	componentWillMount(){
-		let props=this.props,
-		newValue=props.value ? props.value : props.defaultValue ? props.defaultValue : '';
-		ajax({
-			url : "",
-			data: newValue,
-			success : (data) => {
-				if (data.success === true) {
-					this.setState({
-						treeData : data.content,
-					});
-				}
-			}
-		});
+	componentDidMount(){
+		let deptNo = this.state.value;
+    console.log(deptNo)
+    if (deptNo) {
+      ajax({
+        url : `/background/department/GetDepartTree.json?deptNo=${deptNo}`,
+        success : (data) => {
+          if (data.success === true) {
+            if (data.content.treeType == 'ALIPY') {
+              this.setState({
+                treeData : [{
+                  label: '蚂蚁',
+                  value: 'ALIPY',
+                  key: 'ALIPY',
+                  disableCheckbox: true,
+                  children: data.content.tree,
+                }, {
+                  label: '口碑',
+                  value: 'KB',
+                  key: 'KB',
+                  disableCheckbox: true,
+                }]
+              });
+            }else{
+              this.setState({
+                treeData : [{
+                  label: '蚂蚁',
+                  value: 'ALIPY',
+                  key: 'ALIPY',
+                  disableCheckbox: true,
+                }, {
+                  label: '口碑',
+                  value: 'KB',
+                  disableCheckbox: true,
+                  key: 'KB',
+                  children: data.content.tree,
+                }]
+              });
+            }
+            
+          }
+        }
+      });
+    }
+		
 	}
   onChange(value) {
     console.log('onChange ', value, arguments);
@@ -127,6 +160,7 @@ class Demo extends React.Component {
     });
   }
   render() {
+    console.log(this.state.value)
     const tProps = {
       treeData: this.state.treeData,
       value: this.state.value,

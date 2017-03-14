@@ -99,7 +99,7 @@ let AddNew =React.createClass({
 		    prizeCode: '',
       	};
     },
-    componentDidMount(){
+    componentWillMount(){
 	    var self = this;
 	    self.fetch();
 	    var manager = true;
@@ -126,7 +126,7 @@ let AddNew =React.createClass({
         var self = this;
         ajax({
             type : "post",
-            async : true,
+            async : false,
             url : '/platform/prize/QueryPrizeInfoByCode.json',
             data : {
 				prizeCode : prizeCode
@@ -168,13 +168,18 @@ let AddNew =React.createClass({
 			        ]
 			    };
 			    var prizeName = value['prizeName'];
-			    var prizeType = value['prizeType'];
+			    var prizeType = this.state.prizeType;
 			    var content = value['content'];
 			    var priority = value['priority'];
 			    var yearTime = value['yearTime'];
 			    var departmentCode = value['departmentCode'];
 				var startDate = value['range-time-picker'][0].format('YYYY-MM-DD HH:mm:ss');
 				var endDate = value['range-time-picker'][1].format('YYYY-MM-DD HH:mm:ss');
+				if (prizeType != '1' && (departmentCode == 'KB' || departmentCode == 'ALIPY')) {
+					message.error('部门奖不能选择蚂蚁或口碑');
+					return;
+				};
+				debugger
 			    ajax({
 		            type : "post",
 		            async : true,
@@ -431,7 +436,8 @@ let AddNew =React.createClass({
 					              {...formItemLayout}
 					              required
 					            >
-					                {getFieldDecorator('departmentName', {
+					                {getFieldDecorator('departmentCode', {
+						            	initialValue: this.state.data.departmentCode,
 						                rules: [{ required: true, message: '请选择归属部门!' }],
 						            })(
 					                  <DepartTree style={{width:300}}/>
