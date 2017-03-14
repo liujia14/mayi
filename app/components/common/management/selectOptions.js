@@ -2,6 +2,7 @@ import { Select } from 'antd';
 import React from "react";
 import ReactDOM from "react-dom";
 import querystring from 'querystring';
+import ajax from './../ajax/ajax.js';
 const Option = Select.Option;
 
 let timeout;
@@ -19,7 +20,7 @@ function fetch(value, callback) {
       code: 'utf-8',
       q: value,
     });
-    $.ajax({
+    ajax({
           type : "post",
           async : true,
           url : '/platform/prize/QueryAllPrize.json',

@@ -285,7 +285,7 @@ export default class TableCom extends React.Component {
       confirm({   //确认删除
         title: '你确定要删除吗？',
         onOk() {
-          $.ajax({
+          ajax({
             url:'/background/prize/DeletePrizeInfo.json',
             type:'POST',
             data:{
@@ -665,7 +665,7 @@ export default class TableCom extends React.Component {
             }
             <div className="pd20">
               <FormWrap fetch={self.fetch.bind(this)} state={this.state}/>
-              <a className="btn" href="/platform/pageconfig/handleAdd.htm" style={{margin:"10px 0",backgroundColor:"rgb(221,221,221)"}}>新建奖项</a>
+              <a className="btn" href={"/platform/pageconfig/handleAdd.htm?&prizeType="+prizeType} style={{margin:"10px 0",backgroundColor:"rgb(221,221,221)"}}>新建奖项</a>
               <div className="table-fixed">
                 <Table
                   columns={columns}

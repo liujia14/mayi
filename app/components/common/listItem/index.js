@@ -7,6 +7,7 @@ version：v1.0
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './../commonCss/index.less';
+import ajax from './../ajax/ajax.js';
 import './index.less';
 
 import QueueAnim from 'rc-queue-anim'; //淡入淡出动画
@@ -23,7 +24,7 @@ export default class Items extends React.Component {
   doAgree(code,e){
     let t = $(e.target);
     if(t.hasClass("icon-dianzan")){
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         async:false,
@@ -43,7 +44,7 @@ export default class Items extends React.Component {
         error : (data) => {}
       });
     }else{
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         async:false,
@@ -67,7 +68,7 @@ export default class Items extends React.Component {
   notAgree(code,e){
     let t = $(e.target);
     if(t.hasClass("icon-dianzan-copy")){
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         async:false,
@@ -87,7 +88,7 @@ export default class Items extends React.Component {
         error : (data) => {}
       });
     }else{
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         async:false,

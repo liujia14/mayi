@@ -7,6 +7,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './../commonCss/index.less';
+import ajax from './../ajax/ajax.js';
 import './index.less';
 import { message } from 'antd';
 export default class Header extends React.Component {
@@ -19,7 +20,7 @@ export default class Header extends React.Component {
     }
     componentWillMount(){
       let self = this;
-      $.ajax({
+      ajax({
         url:'/platform/home/GetLoginUserInfo.json',
         type:"POST",
         success:(data)=>{
@@ -41,7 +42,7 @@ export default class Header extends React.Component {
       });
     }
     handout(){
-      $.ajax({
+      ajax({
         url:'/platform/home/Eixt.json',
         type:"POST",
         data:{type:1},

@@ -13,6 +13,7 @@ import BreadNavi from './../../../components/common/breadNavi/view.js'; // 面�
 import Footer from './../../../components/common/footer/index.js'; // 底部公用组件
 import ListItem from './../../../components/common/listItem/index'; // ListItem组件列表单个
 import ListLeft from './../../../components/common/listleft/index'; // List列表左侧组件
+import ajax from './../../../components/common/ajax/ajax'; // List列表左侧组件
 
 import { Select , message , Button } from 'antd';
 const Option = Select.Option;
@@ -43,7 +44,7 @@ class Home extends React.Component {
     let self = this;
     // $('body,html').animate({ scrollTop: 0 }, 100);
     let prizeCode = self.getUrl("prizeCode");
-    $.ajax({ //获取奖项信息
+    ajax({ //获取奖项信息
       url:'/platform/prize/QueryPrizeInfoByCode.json',
       type:'POST',
       data:{
@@ -61,7 +62,7 @@ class Home extends React.Component {
       error : (data) => {}
     });
     self.fetchData();
-    $.ajax({ //获取部门
+    ajax({ //获取部门
       url:'/background/department/QueryAllDepart.json',
       type:'POST',
       success : (data) => {
@@ -106,7 +107,7 @@ class Home extends React.Component {
     let self = this;
     let prizeCode = self.getUrl("prizeCode");
     let dataLists = self.state.datas.lists;
-    $.ajax({ //获取更多提名团队信息 传值 currentPage
+    ajax({ //获取更多提名团队信息 传值 currentPage
       url:'/platform/nominate/QueryNominateByPage.json',
       type:'POST',
       data:{
@@ -153,7 +154,7 @@ class Home extends React.Component {
   fetchData(){
     let self = this;
     let prizeCode = self.getUrl("prizeCode");
-    $.ajax({ //获取提名团队信息
+    ajax({ //获取提名团队信息
       url:'/platform/nominate/QueryNominateByPage.json',
       type:'POST',
       data:{
@@ -238,7 +239,7 @@ class Home extends React.Component {
           }
         </div>
         {
-          isMore ? <div className="addMore"> <Button  onClick={(ev)=>{self.handleScroll()}} loading={self.state.loading}>加载更多</Button></div> : null
+          (isMore && datas.prizeStatus != 'before') ? <div className="addMore"> <Button  onClick={(ev)=>{self.handleScroll()}} loading={self.state.loading}>加载更多</Button></div> : null
         }
       </div>
       <div className="footer">

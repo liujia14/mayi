@@ -15,6 +15,7 @@ import {Row, Col , Popconfirm ,Form,DatePicker, Input, Select ,Button,Table,mess
 const FormItem = Form.Item;
 const Option = Select.Option;
 import Bread from "./../../../common/breadNavi/view";
+import ajax from "./../../../common/ajax/ajax";
 
 //部门
 import DepartTree from "./../../../common/undepartTree/view";
@@ -185,7 +186,7 @@ export default class TableCom extends React.Component {
       var currentPage = params.currentPage;
       // 发起ajax请求数据
       self.setState({ loading: true });
-      $.ajax({
+      ajax({
         url : "/platform/nominate/QueryNominateByPrizeCode.json",
         type : "post",
         data:{
@@ -234,7 +235,7 @@ export default class TableCom extends React.Component {
       });
     }
     componentWillMount(){
-      $.ajax({
+      ajax({
         url: '/background/department/checkAdmin.json',
         async: false,
         success: (data) => {prizeType = !data.content ? '3' :data.content.isAdmin ? '1' : '3'}

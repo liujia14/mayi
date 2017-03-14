@@ -47,30 +47,35 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      /*当前页数 默认从1开始*/
+      current: '1',
+      /*ajax loading状态 默认无*/
+      load: true,
       datas:[
       ],
     };
   }
 
-  componentDidMount() {
-    
-    this.fetchData();
-    window.addEventListener('scroll', this.handleScroll.bind(this));
-  }
   componentWillMount() {
-    window.removeEventListener('scroll', this.handleScroll.bind(this));
+    this.fetchData();
   }
-  handleScroll(e) { //执行滚动事件
-    if($(window).scrollTop() >= $(document).height() - $(window).height()){
+  handleScroll(e) { //加载更多
+    this.fetchData();
+    let self = this,
+     current = self.state.currentPage,
+      isLast = self.state.isLast,
+       total = self.state.total;
+
+    /*if($(window).scrollTop() >= $(document).height() - $(window).height()){
       if (flage) {
         pages++; 
         this.fetchData();
       }else{
         message.error('没有更多了')
       }
-    }
+    }*/
   }
-  fetchData(){
+  fetchData(){//获取数据
     
     const datas=this.state.datas;
     var self = this;
@@ -80,7 +85,7 @@ class Home extends React.Component {
       url:"/platform/prize/QueryDepartMentPrize.json",
       data:{
         currentPage: pages,
-        limit: 5,
+        limit: 4,
         departmentCode : departmentCode || '',
       },
       async: false,
@@ -96,7 +101,7 @@ class Home extends React.Component {
         ajaxOut = true;
       }
     })
-    /*datas.push(
+    datas.push(
         {
           listLeft:{
             nominateImg:antImg01,
@@ -142,7 +147,7 @@ class Home extends React.Component {
           listTotal:8,
           year:2013
         })
-    this.setState({datas})*/
+    this.setState({datas})
   }
   render() {
     let year=30000;

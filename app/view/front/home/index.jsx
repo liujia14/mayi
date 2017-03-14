@@ -15,6 +15,7 @@ import Slider from 'react-slick'; // banner组件
 import ListItem from './../../../components/common/listItem/index'; // ListItem组件列表单个
 import ListLeft from './../../../components/common/listleft/index'; // List列表左侧组件
 import FooterDep from './../../../components/common/footerDep/index'; // 底部部门展示组件
+import ajax from './../../../components/common/ajax/ajax'; 
 
 import { Button , message , Carousel} from 'antd';
 
@@ -35,7 +36,7 @@ class Home extends React.Component {
 
   fetchBanner(){ //获取轮播图数据
     let self = this;
-    $.ajax({
+    ajax({
       url:'/platform/home/GetBanners.json',
       type:'POST',
       async:false,
@@ -54,7 +55,7 @@ class Home extends React.Component {
 
   fetchData(){ //获取列表数据
     let self = this;
-    $.ajax({
+    ajax({
       url:'/platform/home/GetCompPrizeList.json',
       type:'POST',
       success : (data) => {
@@ -89,7 +90,7 @@ class Home extends React.Component {
       }
       return result;
     }
-    $.ajax({
+    ajax({
       url:'/platform/home/GetTopDeptList.json',
       type:'POST',
       success : (data) => {

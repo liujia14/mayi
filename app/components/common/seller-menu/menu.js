@@ -6,11 +6,12 @@ import './../commonCss/index.less';
 import login from "./../../../images/logo.png";
 // 获取url数据
 import getUrlData from "./../getUrl/getUrlData.js";
+import ajax from './../ajax/ajax.js';
 
 
 // true - 管理员 否则 是用户
 var manager = null;
-$.ajax({
+ajax({
   url: '/background/department/checkAdmin.json',
   cache: false,
   async:false,
@@ -73,7 +74,7 @@ class Sider extends React.Component {
     }
     componentWillMount(){
       let self = this;
-      $.ajax({
+      ajax({
         url:'/platform/home/GetLoginUserInfo.json',
         type:"POST",
         success:(data)=>{
@@ -95,7 +96,7 @@ class Sider extends React.Component {
       });
     }
     signOut(item){
-        $.ajax({
+        ajax({
           url:"/platform/home/Eixt.json?type=2",
           success:(data) => {
             if (data.success===true) {

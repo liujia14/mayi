@@ -11,6 +11,7 @@ import './style.less';
 import HeadCom from './../../../components/common/header/index.js'; // 头部导航栏
 import Footer from './../../../components/common/footer/index.js'; // 底部公用组件
 import ListItem from './../../../components/common/nominationItem/index'; // 提名组件列表单个
+import ajax from './../../../components/common/ajax/ajax'; 
 
 import { Menu , Select , message ,Button } from 'antd';
 const SubMenu = Menu.SubMenu;
@@ -93,7 +94,7 @@ class Home extends React.Component {
     let self = this;
     let type = self.state.nomineeType;
     let dataLists = self.state.datas;
-    $.ajax({
+    ajax({
       url:'/platform/nominate/MyNominate.json',
       type:'post',
       data:{
@@ -138,7 +139,7 @@ class Home extends React.Component {
     self.setState({
       currentPage:1
     });
-    $.ajax({
+    ajax({
       url:'/platform/nominate/MyNominate.json',
       type:'post',
       data:{

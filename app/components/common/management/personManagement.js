@@ -11,6 +11,7 @@ import { Form, Icon, Input, Button, message, Breadcrumb, Row, Col, Select, Table
 import EditModal from "./edit.js";
 import reqwest from 'reqwest';
 import Bread from "./../breadNavi/view";
+import ajax from "./../ajax/ajax.js";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -100,7 +101,7 @@ let PersonlManage =React.createClass({
     //删除
     delete(record){
     	var self = this;
-      	$.ajax({
+      	ajax({
             type : "post",
             async : true,
             url : '/platform/nominate/RemoveNominate.json',
@@ -142,7 +143,7 @@ let PersonlManage =React.createClass({
     },
     getOwnerData(){
     	var self = this;
-    	$.ajax({
+    	ajax({
             type : "post",
             async : true,
             url : '/background/department/GetDepartments.json',
@@ -163,7 +164,7 @@ let PersonlManage =React.createClass({
     },
     getAwardsData(){
     	var self = this;
-    	$.ajax({
+    	ajax({
             type : "post",
             async : true,
             url : '/platform/prize/QueryAllPrize.json',

@@ -13,6 +13,7 @@ import moment from 'moment';
 import Bread from "./../breadNavi/view";
 import DepartTree from "./../departTree/view";
 import GetYears from "./../getYears/view";
+import ajax from "./../ajax/ajax";
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const FormItem = Form.Item;
@@ -91,7 +92,7 @@ let AddNew =React.createClass({
 		    dataTimepicker: [],
 		    startDate: '',
 		    endDate: '',
-		    prizeType: '',
+		    prizeType: '2',
 		    fileCode: '',
 		    imgUrl: '',
 		    isManager: false,
@@ -102,7 +103,7 @@ let AddNew =React.createClass({
 	    var self = this;
 	    self.fetch();
 	    var manager = true;
-		$.ajax({
+		ajax({
 		  url: '/background/department/checkAdmin.json',
 		  type: 'post',
 		  async : true,
@@ -123,7 +124,7 @@ let AddNew =React.createClass({
 	},
 	fetch(params = {}){
         var self = this;
-        $.ajax({
+        ajax({
             type : "post",
             async : true,
             url : '/platform/prize/QueryPrizeInfoByCode.json',
@@ -131,11 +132,11 @@ let AddNew =React.createClass({
 				prizeCode : prizeCode
             },
             success : function(data){
-            	var dataArray = [];
-                var startDate = data.content.startDate;
-                var endDate = data.content.endDate;
-                dataArray.push(startDate,endDate);
                 if (data.success===true){
+	            	var dataArray = [];
+	                var startDate = data.content.startDate;
+	                var endDate = data.content.endDate;
+	                dataArray.push(startDate,endDate);
                     self.setState({
 	                    data: data.content,
 	                    dataTimepicker: dataArray,
@@ -146,7 +147,7 @@ let AddNew =React.createClass({
 	                    prizeCode: data.content.prizeCode,
 	                });
                 } else {
-
+                	message.error(data.errors);
                 }
 
             },
@@ -174,7 +175,7 @@ let AddNew =React.createClass({
 			    var departmentCode = value['departmentCode'];
 				var startDate = value['range-time-picker'][0].format('YYYY-MM-DD HH:mm:ss');
 				var endDate = value['range-time-picker'][1].format('YYYY-MM-DD HH:mm:ss');
-			    $.ajax({
+			    ajax({
 		            type : "post",
 		            async : true,
 		            url : '/background/prize/SavePrizeInfo.json',
@@ -313,7 +314,7 @@ let AddNew =React.createClass({
 					    <Row>
 					    	<Col className="gutter-row" span={12}>
 					            {
-					    			this.state.isManager == true ?
+					    			/*this.state.isManager == true ?
 						        	<FormItem
 						                label="奖项类型"
 						                {...formItemLayout}
@@ -330,7 +331,7 @@ let AddNew =React.createClass({
 						            )}
 						            <span>{this.state.prizeType == 1 ? <span>公司</span>:<span>部门</span> }</span>
 						            </FormItem>
-						            :
+						            :*/
 						            <FormItem
 						                label="奖项类型"
 						                {...formItemLayout}
@@ -386,7 +387,7 @@ let AddNew =React.createClass({
 					      	</Col>
 					    </Row>
 					    {
-					    	this.state.isDeport == false ?
+					    	this.state.prizeType == '1' ?
 					    	<div>
 						    	<Row>
 							    	<Col className="gutter-row" span={12}>
@@ -409,7 +410,7 @@ let AddNew =React.createClass({
 					    <Row>
 					    	<Col className="gutter-row" span={12}>
 					    	{
-					    		this.state.isDeport == false ?
+					    		this.state.prizeType == '1' ?
 					    		<FormItem
 					                label="归属部门"
 					                {...formItemLayout}
@@ -430,7 +431,7 @@ let AddNew =React.createClass({
 					              {...formItemLayout}
 					              required
 					            >
-					                {getFieldDecorator('departmentCode', {
+					                {getFieldDecorator('departmentName', {
 						                rules: [{ required: true, message: '请选择归属部门!' }],
 						            })(
 					                  <DepartTree style={{width:300}}/>
