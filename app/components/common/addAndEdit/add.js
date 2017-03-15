@@ -12,7 +12,19 @@ import { Form, Input, Button, message, Breadcrumb, Row, Col, Select, Icon, Radio
 import Bread from "./../breadNavi/view";
 import DepartTree from "./../departTree/view";
 import GetYears from "./../getYears/view";
-
+import ajax from "./../ajax/ajax";
+function getUrlParam(key,last){
+    // 获取参数
+    var url = window.location.search;
+    // 正则筛选地址栏
+    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
+    last && (reg = new RegExp("(^|&)"+ key +"=(.*$)"));
+    // 匹配目标参数
+    var result = url.substr(1).match(reg);
+    //返回参数值 decodeURIComponent()乱吗解析
+    return result ? decodeURIComponent(result[2]) : null;
+};
+let prizeType = getUrlParam('prizeType');
 const FormItem = Form.Item;
 const MonthPicker = DatePicker.MonthPicker;
 const RangePicker = DatePicker.RangePicker;
@@ -24,7 +36,7 @@ let AddNew =React.createClass({
       	var self = this;
       	return {
         	merchantAttachUrls:'',
-        	isDeport:false,
+        	prizeType:prizeType,
         	fileCode: '',
         	isManager: false,
       	};
@@ -32,7 +44,7 @@ let AddNew =React.createClass({
     componentDidMount(){
 		var manager = true;
 		var self = this;
-		$.ajax({
+		ajax({
 		  url: '/background/department/checkAdmin.json',
 		  type: 'post',
 		  async : true,
@@ -41,8 +53,7 @@ let AddNew =React.createClass({
 		  	if (data.success===true){
                 manager = data.content.isAdmin;
 			  	self.setState({
-			  		isManager: manager,
-			  		isDeport: !manager,
+			  		isManager: manager
 			  	});
             } else {
 
@@ -64,7 +75,7 @@ let AddNew =React.createClass({
 			        ]
 			    };
 			    var prizeName = value['prizeName'];
-			    var prizeType = value['prizeType'];
+			    var prizeType = this.state.prizeType;
 			    var content = value['content'];
 			    var priority = value['priority'];
 			    var yearTime = value['yearTime'];
@@ -73,7 +84,7 @@ let AddNew =React.createClass({
 				var endDate = value['range-time-picker'][1].format('YYYY-MM-DD HH:mm:ss');
 
 				console.log(value.priority);
-			    $.ajax({
+			    ajax({
 		            type : "post",
 		            async : true,
 		            url : '/background/prize/SavePrizeInfo.json',
@@ -125,6 +136,7 @@ let AddNew =React.createClass({
       }
       return isJPG && isLt3M;
     },
+    /*feiqi*/
     onChange(e) {
 	    let isDeport=e.target.value=='2' ? true : false;
 	    this.setState({
@@ -206,7 +218,7 @@ let AddNew =React.createClass({
 					    <Row>
 					    	<Col className="gutter-row" span={12}>
 					    		{
-					    			this.state.isManager == true ?
+					    			/*!this.state.isManager == true ?
 						        	<FormItem
 						                label="奖项类型"
 						                {...formItemLayout}
@@ -222,7 +234,7 @@ let AddNew =React.createClass({
 							            </RadioGroup>
 						            )}
 						            </FormItem>
-						            :
+						            :*/
 						            <FormItem
 						                label="奖项类型"
 						                {...formItemLayout}
@@ -263,7 +275,7 @@ let AddNew =React.createClass({
 					      	</Col>
 					    </Row>
 					    {
-					    	this.state.isDeport == false ?
+					    	this.state.prizeType == '1' ?
 					    	<div>
 						    	<Row>
 							    	<Col className="gutter-row" span={12}>
@@ -288,32 +300,20 @@ let AddNew =React.createClass({
 					    <Row>
 					    	<Col className="gutter-row" span={12}>
 					    	{
-					    		this.state.isDeport == false ?
 					    		<FormItem
 					                label="归属部门"
 					                {...formItemLayout}
-					            >
+					            required>
 						            {getFieldDecorator('departmentCode', {
 						                rules: [{ required: true, message: '请选择归属部门!' }],
 						            })(
+						            	self.state.prizeType == '1' ? 
 						                <Select placeholder="请选择" style={{width:300}}>
 							                <Option value="ALIPY" key="ALIPY">蚂蚁金服</Option>
 						                  	<Option value="KB" key="ALIPY">口碑</Option>
 						                  	<Option value="ALIPY,KB" key="ALIPY,KB">蚂蚁金服、口碑</Option>
-						                </Select>
+						                </Select> :  <DepartTree style={{width:300}}/>
 						            )}
-					            </FormItem>
-					            :
-					            <FormItem
-					              label="归属部门"
-					              {...formItemLayout}
-					              required
-					            >
-					                {getFieldDecorator('departmentCode', {
-						                rules: [{ required: true, message: '请选择归属部门!' }],
-						            })(
-					                  <DepartTree style={{width:300}}/>
-					                )}
 					            </FormItem>
 					    	}
 					        	

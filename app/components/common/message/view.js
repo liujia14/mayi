@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import { Form, Icon, Input, Button, message, Breadcrumb, Col, Row, Pagination, Modal } from "antd";
 import reqwest from 'reqwest';
 import QueueAnim from 'rc-queue-anim'; //淡入淡出动画
+import ajax from './../ajax/ajax.js';
 const FormItem = Form.Item;
 
 function getUrlParam(key){
@@ -59,7 +60,7 @@ class App extends React.Component {
   	}
     isShowEdit(){
       var self = this;
-      $.ajax({
+      ajax({
           type : "post",
           async : true,
           url : '/platform/nominate/NominateAuthorityForEdit.json',
@@ -114,7 +115,7 @@ class App extends React.Component {
   	}
   	messageFetch(){
   		var self = this;
-  		$.ajax({
+  		ajax({
           type : "post",
           async : true,
           url : '/platform/message/MessageBoardList.json',
@@ -141,7 +142,7 @@ class App extends React.Component {
   	onChange(pageNumber) {
   	  	var self = this;
   	  	var url="/platform/message/MessageBoardList.json";
-    		$.ajax({
+    		ajax({
   	        type : "post",
   	        async : true,
   	        url : url,
@@ -169,7 +170,7 @@ class App extends React.Component {
     doAgree(code,e){
         let t = $(e.target);
         if(t.hasClass("icon-dianzan")){
-        $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+        ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
           url:'/platform/nominate/LikeOperate.json',
           type:"POST",
           async:false,
@@ -189,7 +190,7 @@ class App extends React.Component {
           error : (data) => {}
         });
       }else{
-        $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+        ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
           url:'/platform/nominate/LikeOperate.json',
           type:"POST",
           async:false,
@@ -214,7 +215,7 @@ class App extends React.Component {
     notAgree(code,e){
       let t = $(e.target);
       if(t.hasClass("icon-dianzan-copy")){
-        $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+        ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
           url:'/platform/nominate/LikeOperate.json',
           type:"POST",
           async:false,
@@ -234,7 +235,7 @@ class App extends React.Component {
           error : (data) => {}
         });
       }else{
-        $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+        ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
           url:'/platform/nominate/LikeOperate.json',
           type:"POST",
           async:false,

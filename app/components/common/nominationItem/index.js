@@ -7,6 +7,7 @@ version：v1.0
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './../commonCss/index.less';
+import ajax from './../ajax/ajax.js';
 import './index.less';
 
 import { message,Modal } from 'antd';
@@ -29,7 +30,7 @@ export default class Items extends React.Component {
   doAgree(code,e){  //点赞
     let t = $(e.target);
     if(t.hasClass("icon-dianzan")){
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         data:{
@@ -42,13 +43,13 @@ export default class Items extends React.Component {
             .addClass("icon-dianzan-copy")
             .siblings(".agreeNum").text( parseInt(t.siblings(".agreeNum").text())+1 );
           }else{
-            message.info(data.errors);
+            message.error(data.errors);
           }
         },
         error : (data) => {}
       });
     }else{
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         data:{
@@ -61,7 +62,7 @@ export default class Items extends React.Component {
             .addClass("icon-dianzan")
             .siblings(".agreeNum").text( parseInt(t.siblings(".agreeNum").text())-1 );
           }else{
-            message.info(data.errors);
+            message.error(data.errors);
           }
         },
         error : (data) => {}
@@ -72,7 +73,7 @@ export default class Items extends React.Component {
   notAgree(code,e){ //取消点赞
     let t = $(e.target);
     if(t.hasClass("icon-dianzan-copy")){
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         data:{
@@ -85,13 +86,13 @@ export default class Items extends React.Component {
             .addClass("icon-dianzan")
             .siblings(".agreeNum").text( parseInt(t.siblings(".agreeNum").text())-1 );
           }else{
-            message.info(data.errors);
+            message.error(data.errors);
           }
         },
         error : (data) => {}
       });
     }else{
-      $.ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
+      ajax({  //点赞接口 参数 nomineeCode  type->YES 是点赞 NO 是取消赞
         url:'/platform/nominate/LikeOperate.json',
         type:"POST",
         data:{
@@ -104,7 +105,7 @@ export default class Items extends React.Component {
             .addClass("icon-dianzan-copy")
             .siblings(".agreeNum").text( parseInt(t.siblings(".agreeNum").text())+1 );
           }else{
-            message.info(data.errors);
+            message.error(data.errors);
           }
         },
         error : (data) => {}
@@ -133,7 +134,7 @@ export default class Items extends React.Component {
   handleOk(){
     let self = this;
     let codes = self.state.nomineeCode;
-    $.ajax({
+    ajax({
       url:'/platform/nominate/RemoveNominate.json',
       type:"POST",
       data:{
@@ -146,6 +147,8 @@ export default class Items extends React.Component {
             visible:false
           });
           setTimeout(function(){window.location.reload();},2000);
+        }else{
+          message.error(data.errors)
         }
       },
       error : (data) => {}

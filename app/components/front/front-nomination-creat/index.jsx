@@ -246,6 +246,11 @@ class SellerEdit extends React.Component {
     }
     //团队成员选择变化
     selectChange(v,a){
+                const val = this.props.form.getFieldValue('teamList');
+                val.pop();
+                this.props.form.setFields({teamList:{value:val,errors:[new Error('错误了')]}});
+                console.log(val);
+                console.log(this.props.form.getFieldValue('teamList'));
       v = JSON.parse(v);
       let name = v.name,
           memberCode = v.memberCode;
@@ -255,21 +260,40 @@ class SellerEdit extends React.Component {
         data:{memberCode:memberCode,prizeCode:prizeCode,memberName:name,nomineeCode : getUrlParam('nomineeCode')},
         success:(data) => {
           if (data.success===true && (data.content.length>0)) {
-            let teamList = data.content.split(",");
-            if (teamList.length>0) {
-              Modal.warning({
-                content: (
-                  <div>
-                    {
-                      teamList.map(v=><p className="member-nominated" key={v}>{v}</p>)
-                    }
-                  </div>
-                )
-              })
+            if (data.content.indexOf('此员工不属于此部门' < 0)) {
+              let teamList = data.content.split(",");
+              if (teamList.length>0) {
+                Modal.warning({
+                  content: (
+                    <div>
+                      {
+                        teamList.map(v=><p className="member-nominated" key={v}>{v}</p>)
+                      }
+                    </div>
+                  )
+                })
+              }
+            }else{
+                Modal.error({
+                  content: (
+                    <div>
+                      <p className="member-nominated" >data.content</p>
+                    </div>
+                  )
+                });
+                console.log(this.props.form.getFieldValue('teamList'))
+              this.props.form.setFields({
+                teamList: {
+                  value: null,
+                  errors: [new Error('此员工不属于此部门')],
+                },
+              });
             }
           }
         }
-      })
+      });
+      alert(1)
+      return null
     }
 
     blurTdch(a){
@@ -294,6 +318,7 @@ class SellerEdit extends React.Component {
         }
         console.log(this.state.tuanduichengyuanoption);
         console.log(this.state.data.apTeamMembers);
+        console.log(this.props.form.getFieldValue('teamList'))
         var children = this.state.tuanduichengyuanoption.map( (d,k) => {
           return (
             <Option key={k} value={JSON.stringify({memberCode:d.memberCode,name:d.name})}>
@@ -486,6 +511,7 @@ class SellerEdit extends React.Component {
                             onSelect={this.selectChange.bind(this)}
                             onSearch={this.getValueFromEvent.bind(this)}
                             placeholder="请输入"
+                            id = 'selectBox'
                           >
                             {children}
                           </Select>

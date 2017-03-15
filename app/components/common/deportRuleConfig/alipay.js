@@ -9,6 +9,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Form, Input, Button, message, InputNumber, Row, Col, Select, Table, Popconfirm, Modal } from "antd";
 import EditModal from "./edit.js";
+import ajax from "./../ajax/ajax.js";
 import reqwest from 'reqwest';
 
 const FormItem = Form.Item;
@@ -40,7 +41,7 @@ let App =React.createClass({
         this.setState({
             addVisible: true
         });
-        $.ajax({
+        ajax({
             type : "post",
             async : true,
             data: {
@@ -121,7 +122,7 @@ let App =React.createClass({
         this.refs.modelform.validateFields((err, values) => {
             var self = this;
             if (!err) {
-                $.ajax({
+                ajax({
                     type: "post",
                     async: true,
                     url: "/background/department/ UpdateDeptPriority.json",
@@ -161,7 +162,7 @@ let App =React.createClass({
     //删除
     delete(record){
       var self = this;
-      $.ajax({
+      ajax({
             type : "post",
             async : true,
             url : '/background/department/RemoveDepart.json',

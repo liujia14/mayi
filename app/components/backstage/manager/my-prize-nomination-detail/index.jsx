@@ -15,6 +15,7 @@ import {Row, Col , Popconfirm ,Form,DatePicker, Input, Select ,Button,Table,mess
 const FormItem = Form.Item;
 const Option = Select.Option;
 import Bread from "./../../../common/breadNavi/view";
+import ajax from "./../../../common/ajax/ajax";
 
 //部门
 import DepartTree from "./../../../common/undepartTree/view";
@@ -185,7 +186,7 @@ export default class TableCom extends React.Component {
       var currentPage = params.currentPage;
       // 发起ajax请求数据
       self.setState({ loading: true });
-      $.ajax({
+      ajax({
         url : "/platform/nominate/QueryNominateByPrizeCode.json",
         type : "post",
         data:{
@@ -234,7 +235,7 @@ export default class TableCom extends React.Component {
       });
     }
     componentWillMount(){
-      $.ajax({
+      ajax({
         url: '/background/department/checkAdmin.json',
         async: false,
         success: (data) => {prizeType = !data.content ? '3' :data.content.isAdmin ? '1' : '3'}
@@ -257,6 +258,19 @@ export default class TableCom extends React.Component {
       this.fetch({
         currentPage: pagination.current
       });
+    }
+    /*导出*/
+    handleDelete(){
+      window.location.href=`/background/export/ExportNominate.json?prizeCode=${prizeCode}`;
+      /*ajax({
+        url: `/background/export/ExportNominate.json?prizeCode=${prizeCode}`,
+        type: 'GET',
+        success: (data) => {
+          if (data.errors) {
+            message.error(data.errors);
+          }
+        }
+      })*/
     }
     render() {
       var self = this;
@@ -364,6 +378,11 @@ export default class TableCom extends React.Component {
           <div>
             <div className="pd20">
               <FormWrap fetch={self.fetch.bind(this)} state={this.state}/>
+              {<Row gutter={16}>
+                <Col sm={6} xs={6}>
+                  <Button   type="primary" onClick={() =>this.handleDelete()}>导出</Button>
+                </Col>
+              </Row>}
               <div className="table-fixed">
                 <Table
                   columns={columns}

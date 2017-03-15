@@ -12,6 +12,7 @@ import Banner from './../Banner/banner'; // banner组件
 import imgSrc  from './../../../images/slider.png'; //banner图片
 import reqwest from 'reqwest';
 import Bread from "./../../common/breadNavi/view";
+import ajax from "./../../common/ajax/ajax";
 import "./../commonCss/table.less";
 
 const FormItem = Form.Item;
@@ -60,7 +61,7 @@ let App =React.createClass({
                   message.error("链接输入有误");
                   return;
                 }
-                $.ajax({
+                ajax({
                       type : "post",
                       async : true,
                       url : '/background/banner/SaveBannerInfo.json',
@@ -128,7 +129,7 @@ let App =React.createClass({
                   message.error("链接输入有误");
                   return;
                 }
-                $.ajax({
+                ajax({
                       type : "post",
                       async : true,
                       url : '/background/banner/UpdateBannerInfo.json',
@@ -176,7 +177,7 @@ let App =React.createClass({
     //删除
     delete(record){
       	var self = this;
-        $.ajax({
+        ajax({
               type : "post",
               async : true,
               url : '/background/banner/DelBannerInfo.json',

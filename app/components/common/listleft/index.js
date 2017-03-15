@@ -7,6 +7,7 @@ version：v1.0
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './../commonCss/index.less';
+import ajax from './../ajax/ajax.js';
 import './index.less';
 import { Button,message,Modal } from 'antd';
 
@@ -17,7 +18,7 @@ export default class Items extends React.Component {
     };
   }
   handleClick(code,link){
-    $.ajax({
+    ajax({
       url:'/platform/nominate/NominateAuthority.json',
       data:{prizeCode:code},
       type:'post',

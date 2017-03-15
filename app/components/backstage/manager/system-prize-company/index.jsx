@@ -285,7 +285,7 @@ export default class TableCom extends React.Component {
       confirm({   //确认删除
         title: '你确定要删除吗？',
         onOk() {
-          $.ajax({
+          ajax({
             url:'/background/prize/DeletePrizeInfo.json',
             type:'POST',
             data:{
@@ -326,6 +326,18 @@ export default class TableCom extends React.Component {
     }
     linkToDetail(code,categoryCode){ //查看提名
       window.location.href=`/platform/pageconfig/prizeNominationDetail.htm?prizeCode=${code}&prizeName=${categoryCode}`;
+    }
+    exportNominate(code){
+      window.location.href=`/background/export/ExportNominate.json?prizeCode=${code}`;
+      /*ajax({
+        url: `/background/export/ExportNominate.json?prizeCode=${code}`,
+        type: 'GET',
+        success: (data) => {
+          if (data.errors) {
+            message.error(data.errors)
+          }
+        }
+      })*/
     }
     handleTableChange(pagination, filters, sorter) {
       var self = this;
@@ -479,6 +491,7 @@ export default class TableCom extends React.Component {
               if(status === '1' || status === '6'){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToEdit(code,categoryCode)}>修改</a>
                   <a className="play-btn ant-dropdown-link"  onClick={() =>self.delet(code,'2')} >删除</a>
@@ -487,11 +500,13 @@ export default class TableCom extends React.Component {
               }else if(status === '5' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                 </span>)
               }else if(status === '2' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
                   <a className="play-btn"  onClick={() =>self.linkToEdit(code,categoryCode)}>修改</a>
@@ -500,6 +515,7 @@ export default class TableCom extends React.Component {
               }else if(status === '3' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToSet(code,categoryCode)}>设置奖项</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
@@ -509,6 +525,7 @@ export default class TableCom extends React.Component {
               }else if(status === '4'){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
                 </span>)
@@ -609,6 +626,7 @@ export default class TableCom extends React.Component {
               if(status === '1' || status === '6'){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToEdit(code,categoryCode)}>修改</a>
                   <a className="play-btn ant-dropdown-link"  onClick={() =>self.delet(code,'2')} >删除</a>
@@ -617,11 +635,13 @@ export default class TableCom extends React.Component {
               }else if(status === '5' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                 </span>)
               }else if(status === '2' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
                   <a className="play-btn"  onClick={() =>self.linkToEdit(code,categoryCode)}>修改</a>
@@ -630,6 +650,7 @@ export default class TableCom extends React.Component {
               }else if(status === '3' ){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToSet(code,categoryCode)}>设置奖项</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
@@ -639,6 +660,7 @@ export default class TableCom extends React.Component {
               }else if(status === '4'){
                 return(
                 <span>
+                  <a className="play-btn"  onClick={() =>self.exportNominate(record)}>导出</a>
                   <a className="play-btn"  onClick={() =>self.linkToModal(record)}>详情</a>
                   <a className="play-btn"  onClick={() =>self.linkToDetail(code,categoryCode)}>查看提名</a>
                 </span>)
@@ -665,7 +687,7 @@ export default class TableCom extends React.Component {
             }
             <div className="pd20">
               <FormWrap fetch={self.fetch.bind(this)} state={this.state}/>
-              <a className="btn" href="/platform/pageconfig/handleAdd.htm" style={{margin:"10px 0",backgroundColor:"rgb(221,221,221)"}}>新建奖项</a>
+              <a className="btn" href={"/platform/pageconfig/handleAdd.htm?&prizeType="+prizeType} style={{margin:"10px 0",backgroundColor:"rgb(221,221,221)"}}>新建奖项</a>
               <div className="table-fixed">
                 <Table
                   columns={columns}
