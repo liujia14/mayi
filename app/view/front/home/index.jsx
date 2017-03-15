@@ -146,7 +146,7 @@ class Home extends React.Component {
     imgTpl = (IMAGE_DATA || []).map((item, index) => {
       return (
         <div key={index} >
-          {item.bannerUrl == 'javascript:;' ? <span><div style={{ 'background-image' : 'url('+item.url+')' }}></div></span> : <a href={item.bannerUrl}><div style={{ 'background-image' : 'url('+item.url+')' }}></div></a>}
+          {item.bannerUrl == 'javascript:;' ? <span><div style={{ 'backgroundImage' : 'url('+item.url+')' }}></div></span> : <a href={item.bannerUrl}><div style={{ 'backgroundImage' : 'url('+item.url+')' }}></div></a>}
         </div>
       );
     });

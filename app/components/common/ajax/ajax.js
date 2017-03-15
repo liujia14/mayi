@@ -8,7 +8,7 @@ module.exports = function({type = "POST",success,error,url,data,async = true,cac
     async,
     cache,
     complete : (xhr,data) => {
-            var head = xhr.responseText.indexOf("302");
+            var head = xhr.responseText.indexOf('"code":"302"');
             if(head !== -1){
                 location.reload();
             }

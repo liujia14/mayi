@@ -259,6 +259,19 @@ export default class TableCom extends React.Component {
         currentPage: pagination.current
       });
     }
+    /*导出*/
+    handleDelete(){
+      window.location.href=`/background/export/ExportNominate.json?prizeCode=${prizeCode}`;
+      /*ajax({
+        url: `/background/export/ExportNominate.json?prizeCode=${prizeCode}`,
+        type: 'GET',
+        success: (data) => {
+          if (data.errors) {
+            message.error(data.errors);
+          }
+        }
+      })*/
+    }
     render() {
       var self = this;
       // 表格列的配置描述
@@ -365,6 +378,11 @@ export default class TableCom extends React.Component {
           <div>
             <div className="pd20">
               <FormWrap fetch={self.fetch.bind(this)} state={this.state}/>
+              {<Row gutter={16}>
+                <Col sm={6} xs={6}>
+                  <Button   type="primary" onClick={() =>this.handleDelete()}>导出</Button>
+                </Col>
+              </Row>}
               <div className="table-fixed">
                 <Table
                   columns={columns}

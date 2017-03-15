@@ -13,7 +13,7 @@ import Footer from './../../../components/common/footer/index.js'; // 底部公�
 import ListItem from './../../../components/common/listItem/index'; // ListItem组件列表单个
 import ListLeft from './../../../components/common/listleft/index'; // List列表左侧组件
 import Bread from './../../../components/common/breadNavi/view'; // 面包屑组件
-import { message } from 'antd';
+import { message,Spin ,Button  } from 'antd';
 import './style.less';
 /*import imgSrc   from './../../../images/banner.png'; 
 import imgData1 from './../../../images/pic-01.png';
@@ -35,12 +35,7 @@ function getUrlParam(key,last){
     //返回参数值 decodeURIComponent()乱吗解析
     return result ? decodeURIComponent(result[2]) : null;
 }
-var pages=1,
-  //判断是否还有数据
-    flage=true,
-    //判断ajax是否返回
-    ajaxOut=true,
-    departmentCode=getUrlParam("departCode"),
+var departmentCode=getUrlParam("departCode"),
     firstDepartName=getUrlParam("firstDepartName"),
     departName=getUrlParam("departName",true);
 class Home extends React.Component {
@@ -48,9 +43,11 @@ class Home extends React.Component {
     super(props);
     this.state = {
       /*当前页数 默认从1开始*/
-      current: '1',
-      /*ajax loading状态 默认无*/
+      currentPage: '1',
+      /*ajax loading状态 默认有*/
       load: true,
+      /*是否还有数据 默认无*/
+      last: false,
       datas:[
       ],
     };
@@ -59,111 +56,60 @@ class Home extends React.Component {
   componentWillMount() {
     this.fetchData();
   }
-  handleScroll(e) { //加载更多
-    this.fetchData();
-    let self = this,
-     current = self.state.currentPage,
-      isLast = self.state.isLast,
-       total = self.state.total;
-
-    /*if($(window).scrollTop() >= $(document).height() - $(window).height()){
-      if (flage) {
-        pages++; 
-        this.fetchData();
-      }else{
-        message.error('没有更多了')
-      }
-    }*/
+  handleScroll() { //加载更多
+    let currentPage = this.state.currentPage+1;
+    this.setState({
+      load: true,
+    })
+    this.fetchData(currentPage);
   }
-  fetchData(){//获取数据
+  fetchData(current){//获取数据
     
     const datas=this.state.datas;
     var self = this;
-    if (!ajaxOut) { return; }else{ajaxOut = false;};
-    
+    let currentPage = current || this.state.currentPage;
     ajax({
       url:"/platform/prize/QueryDepartMentPrize.json",
       data:{
-        currentPage: pages,
-        limit: 4,
+        currentPage: currentPage,
+        limit: 5, 
         departmentCode : departmentCode || '',
       },
-      async: false,
       success: (data) => {
-        console.log(pages);  
-        if (data.success === true && data.content.result.length > 0) {
+        if (data.success === true) {
           datas.push.apply(datas,data.content.result);
-          if (data.content.result.length < 5 || data.content.total <= datas.length) {
-            flage = false;
-          }
-          self.setState({datas});
+          self.setState({
+            datas: datas,
+            load: false,
+            last: data.content.last,
+            currentPage: data.content.currentPage,
+          });
+        }else{
+          self.setState({
+            load: false,
+            
+          })
         }
-        ajaxOut = true;
       }
     })
-    datas.push(
-        {
-          listLeft:{
-            nominateImg:antImg01,
-            nominateName:"蚂蚁骑兵",
-            nominateDec:"奖项内涵文案奖项内涵文案，奖项内涵文案，奖项内涵文案奖项内涵文案奖项内涵文案，奖项内涵文案奖项内涵文案奖项内涵文案。",
-            nominateDep:"支付宝、口碑",
-            nominateTime:'2017-1-4 - 2017-12-8'
-          },
-          lists : [
-            {
-              itemCode:1,
-              itemImg: imgData1,
-              itemTitle:'支付宝-芝麻信用-商家服务部-技术二部',
-              itemAgree:2546,
-              itemComment:542,
-              isWin:1
-            },
-            {
-              itemCode:2,
-              itemImg: imgData2,
-              itemTitle:'蚂蚁金服-秘密团队',
-              itemAgree:2512,
-              itemComment:321,
-              isWin:1
-            },
-            {
-              itemCode:3,
-              itemImg: imgData3,
-              itemTitle:'浙江网商银行',
-              itemAgree:2412,
-              itemComment:45,
-              isWin:0
-            },
-            {
-              itemCode:4,
-              itemImg: imgData4,
-              itemTitle:'博彦科技ODC',
-              itemAgree:1312,
-              itemComment:231,
-              isWin:0
-            }
-          ],
-          listTotal:8,
-          year:2013
-        })
-    this.setState({datas})
   }
   render() {
+    let self = this;
     let year=30000;
     let datas = this.state.datas;
     console.log(datas)
     return (
       <div>
         <HeadCom></HeadCom>
-        <div className="oddDiff">
-        <div className="content">
-          <Bread breadList={[{text : "首页",link : "/platform/index.htm"},{text : firstDepartName},{ text : departName,link : "javascript:();"}]} />
-          <div className="header-logo">{departName}</div>
-        </div>
-        {
-          datas.length > 0 ?
-          datas.map((item,index)=>{
+        <Spin spinning = {this.state.load}>
+          <div className="oddDiff">
+          <div className="content">
+            <Bread breadList={[{text : "首页",link : "/platform/index.htm"},{text : firstDepartName},{ text : departName,link : "javascript:();"}]} />
+            <div className="header-logo">{departName}</div>
+          </div>
+          { 
+            datas.length > 0 ?
+            datas.map((item,index)=>{
             let links = "/platform/pageconfig/awardsDetail.htm?prizeCode="+item.prizeCode;
             let yearArr=[],listClass='y-list';
             if (item.year < year) {
@@ -202,12 +148,16 @@ class Home extends React.Component {
                   </div>
                 </div>
               )
-          }) : 
-          <div className="showNull">
-            <span>该部门暂无奖项，敬请期待！</span>
+            }) : 
+            <div className="showNull">
+              <span>该部门暂无奖项，敬请期待！</span>
+            </div>
+          }
           </div>
-        }
-        </div>
+          {
+            this.state.last ? <div className="addMore"> <Button  onClick={(ev)=>{self.handleScroll()}} loading={self.state.load}>加载更多</Button></div> : null
+          }
+        </Spin>
         <div className="y-container" ><Footer/></div>
       </div>
     );
